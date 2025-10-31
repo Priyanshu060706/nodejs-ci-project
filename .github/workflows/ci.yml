@@ -1,0 +1,36 @@
+name: Nodejs project CI Pipeline #name of the workflow
+
+on: #to creates when workflow should run
+  push: #run whenver code is pushed
+    branches:
+       -main #only on the "main" branch
+  pull_request: # rulss on pull request targetting main branch 
+    branches:
+     -main
+
+
+jobs: # a workflow is made of one or more jobs
+  build: #name of the job 
+    runs-on: ubuntu-latest # the envoironment where job will run (GITHUB-hosted runner)
+
+    steps: # a job has multiple steps that run in order 
+      - name:  checkout code #step1 :get repostitory code
+        uses: action/checkout@v3 #"uses" imports an exisiting github action
+
+      - name: setup Node.js #step2:setup Node.js environment 
+        uses: action/setup-node@v3
+        with:
+          node-version: "18" #secify Node.js version 
+
+      - name: Install dependencies # stop 3: Install npm pacakges
+        run: npm Install #install executes shell comands in the runner 
+      
+      - name: Run tests # step4 : run test cases
+        run: npm test
+
+      - name: build project #step 5: build aapplication
+        run: npm run build
+
+        
+
+
