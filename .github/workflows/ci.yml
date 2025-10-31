@@ -3,10 +3,10 @@ name: Nodejs project CI Pipeline #name of the workflow
 on: #to creates when workflow should run
   push: #run whenver code is pushed
     branches:
-       -main #only on the "main" branch
+      -master #only on the "main" branch
   pull_request: # rulss on pull request targetting main branch 
     branches:
-     -main
+     -master
 
 
 jobs: # a workflow is made of one or more jobs
