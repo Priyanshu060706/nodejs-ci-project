@@ -15,10 +15,10 @@ jobs: # a workflow is made of one or more jobs
 
     steps: # a job has multiple steps that run in order 
       - name:  checkout code #step1 :get repostitory code
-        uses: action/checkout@v3 #"uses" imports an exisiting github action
+        uses: actions/checkout@v3 #"uses" imports an exisiting github action
 
       - name: setup Node.js #step2:setup Node.js environment 
-        uses: action/setup-node@v3
+        uses: actions/setup-node@v3
         with:
           node-version: "18" #secify Node.js version 
 
