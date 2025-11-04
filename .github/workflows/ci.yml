@@ -35,7 +35,7 @@ jobs: # a workflow is made of one or more jobs
         run: npm ci --production && tar -czf release.tar.gz build node_modules package.json
 
       - name: upload artifact 
-        uses: action/upload-artifact@v4
+        uses: actions/upload-artifact@v4
         with:
           name: releasepath:release.tar.gz
           path: release.tar.gz
@@ -45,7 +45,7 @@ jobs: # a workflow is made of one or more jobs
     
     steps:
      - name: download artifact 
-       uses: action/download-artifact@v4
+       uses: actions/download-artifact@v4
        with:
          name: release
          path: ./artifact
