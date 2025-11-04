@@ -31,6 +31,31 @@ jobs: # a workflow is made of one or more jobs
       - name: build project #step 5: build aapplication
         run: npm run build
 
+      - name: prepare release artifact
+        run: npm ci --production && tar -czf release.tar.gz build node_modules package.json
+
+      - name: upload artifact 
+        uses: action/upload-artifact@v4
+        with:
+          name: releasepath:release.tar.gz
+          path: release.tar.gz
+
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+     - name: download artifact 
+       uses: action/download-artifact@v4
+       with:
+         name: release
+         path: ./artifact
+ 
+     - name: setup SSH
+       run: |
+          mkdir -p ~/.ssh 
+          echo "${{ secrets.EC2_SSH_KEY}}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{secrets.EC2_HOST}} >> ~/.ssh/known_hosts
         
 
 
