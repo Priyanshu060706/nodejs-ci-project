@@ -37,7 +37,7 @@ jobs: # a workflow is made of one or more jobs
       - name: upload artifact 
         uses: actions/upload-artifact@v4
         with:
-          name: releasepath:release.tar.gz
+          name: release
           path: release.tar.gz
 
   deploy:
