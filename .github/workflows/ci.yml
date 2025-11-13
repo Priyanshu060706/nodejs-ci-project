@@ -57,3 +57,12 @@ jobs: # a workflow is made of one or more jobs
           echo "${{ secrets.EC2_SSH_KEY}}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{secrets.EC2_HOST}} >> ~/.ssh/known_hosts
+
+  -name: upload Artifact to Server
+  run: |
+    scp ./artifact/release.tar.gz ${{secrets.EC2_USER}}@${{secrets.EC2_HOST}}:/tmp/release.tar.gz
+    ssh ${{ secrets.EC2_USER}}@${{ secrets.EC2_HOST}} <<  'EOF'
+     mkdir -p ~/deploy/releases
+     tar -xzf /tmp/release.tar.gz -C ~/deploy/releases
+     rm /tmp/release.tar.gz
+    EOF
